@@ -1,17 +1,17 @@
 pipeline {
     agent any
     tools{
-        maven 'maven_3_5_0'
+        maven 'maven'
     }
     environment {
-      registry = "rahilnawab/devops-integration"
+      registry = "krish-xo/POC-5"
       registryCredential = 'dockerhub-pwd'
       dockerImage = ''
     }
     stages{
         stage('Build Maven'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/rahilnawab/CI']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/krish-xo/POC-5.git']]])
                 bat 'mvn clean'
                 bat 'mvn package'
 		bat 'mvn install'
