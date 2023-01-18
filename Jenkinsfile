@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools{
-        maven 'maven'
+        maven 'maven_3_5_0'
     }
     environment {
       registry = "krish-xo/POC-5"
