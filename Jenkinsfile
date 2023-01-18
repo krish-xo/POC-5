@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     environment {
       registry = "krish-xo/POC-5"
       registryCredential = 'dockerhub-pwd'
