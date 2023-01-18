@@ -1,8 +1,4 @@
 pipeline {
-    agent any
-    tools{
-        maven 'maven_3_5_0'
-    }
     environment {
       registry = "krish-xo/POC-5"
       registryCredential = 'dockerhub-pwd'
