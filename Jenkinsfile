@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
       registry = "krishxo/jenkins-docker"
-      DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+      registryCredential = credentials('dockerhub')
       dockerImage = ''
     }
     stages{
@@ -23,7 +23,7 @@ pipeline {
         }
 	stage('Login') {
 	      steps{
-		   bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+		docker.withRegistry('', registryCredential )   
 	     }
 	}
         stage('Push image to DockerHUB'){
