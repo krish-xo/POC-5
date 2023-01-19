@@ -23,10 +23,9 @@ pipeline {
         }
         stage('Push image to DockerHUB'){
             steps{
-         	script {
-			withCredentials([usernamePassword(credentialsId: 'f593af9a-6979-492e-a28d-28be9c591a6d', passwordVariable: 'pwd', usernameVariable: 'dockerhub')]) {
-				sh 'docker login -u krishxo-p${dockerhub}'
-				sh 'docker push krishxo/jenkins-docker:$BUILD_NUMBER'
+         script {
+		 docker.withRegistry( '', registryCredential ) {
+		 bat ' docker push krishxo/jenkins-docker:%HASH%'
 			}
                     }   
                 }
