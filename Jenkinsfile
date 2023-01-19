@@ -1,14 +1,14 @@
 pipeline {
     agent any
     environment {
-      registry = "krish-xo/POC-5"
+      registry = "krishxo/jenkins-docker"
       registryCredential = 'dockerhub-pwd'
       dockerImage = ''
     }
     stages{
         stage('Build Maven'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/krish-xo/POC-5.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/krish-xo/POC-5.git']]])
                 bat 'mvn clean'
                 bat 'mvn package'
 		bat 'mvn install'
@@ -16,7 +16,9 @@ pipeline {
         }
         stage('Build docker image'){
             steps{
-		bat 'docker build -t krish-xo/POC-5:$BUILD_NUMBER'
+                script{
+			        dockerImage = docker.build registry + ":$BUILD_NUMBER"
+			 }
             }
         }
         stage('Push image to DockerHUB'){
