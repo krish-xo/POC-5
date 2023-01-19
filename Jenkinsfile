@@ -21,16 +21,11 @@ pipeline {
 			 }
             }
         }
-	stage('Login') {
-	      steps{
-		      script {
-			docker.withRegistry('', registryCredential )
-		      }
-	     }
-	}
         stage('Push image to DockerHUB'){
             steps{
-		 bat ' docker push krishxo/jenkins-docker:$BUILD_NUMBER'   
+         script {
+            docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()  
                 }
             }
         }
