@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Build docker image'){
             steps{
-		    sh 'docker build -t krish-xo/POC-5:$BUILD_NUMBER'			 
+		 sh 'docker build -t krish-xo/POC-5:$BUILD_NUMBER'
             }
         }
         stage('Push image to DockerHUB'){
