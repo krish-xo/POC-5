@@ -23,12 +23,11 @@ pipeline {
         }
         stage('Push image to DockerHUB'){
             steps{
-		    withCredentials([string(credentialsId: '', variable: 'dockerhub')]) {
-   
-		}
-         script {
-            docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
+         	script {
+			withCredentials([usernamePassword(credentialsId: 'f593af9a-6979-492e-a28d-28be9c591a6d', passwordVariable: 'pwd', usernameVariable: 'dockerhub')]) {
+				sh 'docker login -u krishxo-p${dockerhub}'
+				sh 'docker push krishxo/jenkins-docker:$BUILD_NUMBER'
+			}
                     }   
                 }
             }
